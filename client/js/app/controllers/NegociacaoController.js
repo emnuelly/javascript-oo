@@ -10,6 +10,15 @@ class NegociacaoController{
         this._inputValor = $('#valor');
         //chamando a lista de negociaçoes
         this._listaNegociacoes = new ListaNegociacoes(); 
+        //chama o elemento e passa o paramentro da div
+        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
+        //a tabela vai aparecer somente quando a tabela for criada
+        this._negociacoesView.update(this._listaNegociacoes);
+        //chamando a classe mensagem
+        this._mensagem = new Mensagem();
+        //view
+        this._mensagemView = new MensagemView($('#mensagemView'));
+        this._mensagemView.update(this._mensagem);
     }
 
     //evento que acontece quando clica no botão de inluir
@@ -18,6 +27,12 @@ class NegociacaoController{
         event.preventDefault();
         //ædicionadno a negociação a lista
         this._listaNegociacoes.adiciona(this._criaNegociacao());
+        //passando uma mensagem ao usuario
+        this._mensagem.texto = "Negociação adicionada com sucesso!!";
+        //exibir a mensagem
+        this._mensagemView.update(this._mensagem);
+        //atualizando a tabela
+        this._negociacoesView.update(this._listaNegociacoes);
         //limpando a negociação
         this._limpaFormulario();
     }
