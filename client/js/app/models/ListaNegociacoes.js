@@ -11,7 +11,9 @@ class ListaNegociacoes {
 
     //listar as negociacoes
     get negociacoes() {
-        return this._negociacoes;
+        //program. defensiva: ele recebe um array vazio
+        //e cria uma copia, isso evita que uma negocia
+        return [].concat(this._negociacoes);
     }
 
 }

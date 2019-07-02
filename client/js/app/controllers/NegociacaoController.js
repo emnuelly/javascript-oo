@@ -9,8 +9,7 @@ class NegociacaoController{
         this._inputQuantidade =  $('#quantidade');
         this._inputValor = $('#valor');
         //chamando a lista de negociaçoes
-        this._listaNegociacoes = new ListaNegociacoes();
-        
+        this._listaNegociacoes = new ListaNegociacoes(); 
     }
 
     //evento que acontece quando clica no botão de inluir
@@ -21,14 +20,10 @@ class NegociacaoController{
         this._listaNegociacoes.adiciona(this._criaNegociacao());
         //limpando a negociação
         this._limpaFormulario();
-
-        console.log(this._listaNegociacoes.negociacoes);
-
-
     }
 
+    //criando a negociação
     _criaNegociacao(){
-        //criando a negociação
         let negociacao = new Negociacao(
             //usando o date helper ja na declaração
             DateHelper.textoParaData(this._inputData.value),
@@ -43,7 +38,6 @@ class NegociacaoController{
         this._inputData.value = '';
         this._inputQuantidade.value = '';
         this._inputValor.value = 0.0;
-
         this._inputData.focus();
     }
 }
