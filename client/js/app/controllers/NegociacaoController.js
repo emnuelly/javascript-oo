@@ -13,25 +13,29 @@ class NegociacaoController{
         
     }
 
+    //evento que acontece quando clica no botão de inluir
     adiciona(event) {
+        //fazendo com que não atualize a pagina
         event.preventDefault();
-        
-        //criando a negociação e inserindo os dados
-        let negociacao = new Negociacao(
-            //usando o date helper ja na declaração
-            DateHelper.textoParaData(this._inputData.value),
-            this._inputQuantidade.value,
-            this._inputValor.value
-        );
-
         //ædicionadno a negociação a lista
-        this._listaNegociacoes.adiciona(negociacao);
+        this._listaNegociacoes.adiciona(this._criaNegociacao());
         //limpando a negociação
         this._limpaFormulario();
 
         console.log(this._listaNegociacoes.negociacoes);
 
 
+    }
+
+    _criaNegociacao(){
+        //criando a negociação
+        let negociacao = new Negociacao(
+            //usando o date helper ja na declaração
+            DateHelper.textoParaData(this._inputData.value),
+            this._inputQuantidade.value,
+            this._inputValor.value);
+
+        return negociacao;
     }
 
     //esse metodo significa que só pode ser chamado pelo propria classe
