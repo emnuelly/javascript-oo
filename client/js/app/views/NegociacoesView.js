@@ -1,10 +1,12 @@
-class NegociacoesView{
+class NegociacoesView extends View{
 
     constructor(elemento){
-        this._elemento = elemento;
+        //passando para a classe pai que é a VIEW
+        super(elemento);
     }
+
     //retorna o html para criar a lista das negociaçoes
-    _template(model){
+    template(model){
         return `
         <table class="table table-hover table-bordered">
             <thead>
@@ -44,12 +46,6 @@ class NegociacoesView{
         </table>
         `;
     }
-
-    update(model){
-        //innerHTML converte em dom a string recebida
-        this._elemento.innerHTML = this._template(model);
-    }
-
     
 }
 /**
