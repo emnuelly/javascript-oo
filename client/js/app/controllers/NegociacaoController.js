@@ -8,29 +8,12 @@ class NegociacaoController{
         this._inputData = $('#data');
         this._inputQuantidade =  $('#quantidade');
         this._inputValor = $('#valor');
-        let self = this;
 
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-
-            get(target, prop, receiver){
-                if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function)){
-
-                    return function(){
-
-                        console.log(`método '${prop}' interceptado`);
-          
-                       Reflect.apply(target[prop], target, arguments);
-          
-                        self._negociacoesView.update(target);
-          
-                      }
-           
-                }
-                     
-                return Reflect.get(target, prop, receiver);
-
-            }
-        });
+        //criando a lista chamando a classe ajudante Bind
+        this._listaNegociacoes = new Bind(
+            new ListaNegociacoes(),
+            new NegociacoesView($('#negociacoesView')),
+            'adiciona', 'esvazia');
 
         /*
         //chamando a lista de negociaçoes, com uma arrowfunction
@@ -39,14 +22,14 @@ class NegociacaoController{
             this._negociacoesView.update(model)); 
         */
         //chama o elemento e passa o paramentro da div
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        //a tabela vai aparecer somente quando a tabela for criada
-        this._negociacoesView.update(this._listaNegociacoes);
-        //chamando a classe mensagem
-        this._mensagem = new Mensagem();
         //view
-        this._mensagemView = new MensagemView($('#mensagemView'));
-        this._mensagemView.update(this._mensagem);
+        //usando o Proxy Factory dentro da helper bind
+        this._mensagem = new Bind(
+            new Mensagem(),
+            new MensagemView($('#mensagemView')),
+            'texto');
+
+        
     }
 
     //evento que acontece quando clica no botão de inluir
