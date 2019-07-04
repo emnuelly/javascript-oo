@@ -10,7 +10,7 @@ class NegociacaoController{
         this._inputValor = $('#valor');
         let self = this;
 
-        new Proxy(new ListaNegociacoes(), {
+        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
 
             get(target, prop, receiver){
                 if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function)){
@@ -26,10 +26,12 @@ class NegociacaoController{
                       }
            
                 }
-                     return Reflect.get(target, prop, receiver);
+                     
+                return Reflect.get(target, prop, receiver);
 
             }
-        })
+        });
+
         /*
         //chamando a lista de negociaçoes, com uma arrowfunction
         this._listaNegociacoes = new ListaNegociacoes(model =>
